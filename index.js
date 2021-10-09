@@ -7,7 +7,7 @@ const port = 3000
 app.use(morgan("combined")) //HTTP logger
 app.engine('hbs', handlebars({ extname: '.hbs' }));
 app.set('view engine', 'hbs');
-//console.log("PATH: ", __dirname)
+app.use(express.static(path.join(__dirname, 'views')));
 //app.set('views', path.join(__dirname, 'views'))
 app.get('/', (req, res) => {
         //res.send('home')
