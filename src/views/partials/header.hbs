@@ -1,5 +1,16 @@
-<nav class="navbar navbar-light bg-light">
-  <span class="navbar-text" style="font-size:40px;color:black;">
-    Thực hiện bài test
-  </span>
-</nav>
+
+  <div class="container" style="margin:0px;padding:0px;">
+        <div class="row" style="margin:0px;padding:0px;width:100%;">
+          <div class="col-md-4" style="margin:0px;padding:0px;">
+            <img id="profile-img" src="../public/images/logo.png" style="width:200px;height:120px;padding:0px;"/>
+          </div>
+          <div class="col-md-5" style="text-align: center;margin:0px;padding:0px;"><span class="navbar-text" style="font-size:40px;color:black; text-align:center;float:right">
+              Thực hiện bài test
+          </span></div>
+          <div class="col-md-3"  style="margin:0px;padding:0px;text-align:right;">
+            {{#if user}}
+               <div style="padding-top:35px;font-size:20px;color:rgb(18, 201, 97)">{{user}}</div>
+               {{/if}}
+          </div>
+        </div>
+  </div>
