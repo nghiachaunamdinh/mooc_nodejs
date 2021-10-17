@@ -1,14 +1,11 @@
-const userRouter = require('./userRoute.js')
+const userRouter = require('./userRoute.js');
+const authMiddleware = require('../middlewares/loginMiddleware');
 
 function route(app) {
-    app.use('/login', userRouter);
-    // app.get('/', (req, res) => {
-    //     //res.send('home')
-    //     res.render('home');
-    // })
-    // app.get('/login', (req, res) => {
-    //     //res.send('home')
-    //     res.render('login');
-    // })
+    app.use('/login', authMiddleware.requireAuth, userRouter);
+    //authMiddleware.requireAuth,
+    app.use('/home', (req, res, next) => {
+        res.render("home");
+    })
 }
 module.exports = route;
