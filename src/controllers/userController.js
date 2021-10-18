@@ -10,30 +10,33 @@ class UserController {
         res.render("signup");
     };
     //POST singup
-    signup_post(req, res) {
+    async signup_post(req, res) {
         const name = req.body.name;
         const phone = req.body.phone;
         const gmail = req.body.gmail;
         const possion = req.body.possion;
-        const username = req.body.username;
         const password = req.body.password;
+        const findPhone = await users.findOne({ phone });
+        const findUser = await users.findOne({ gmail });
+        if (findPhone) return res.render('signup', { error: "Phone is already in use." });
+        if (findUser) return res.render('signup', { error: "Gmail is already in use." });
+
         users.create({
                 "name": name,
                 "phone": phone,
                 "gmail": gmail,
                 "possion": possion,
-                "userName": username,
                 "passWord": password
             })
-            .then(() => { res.redirect("/user/login") })
+            .then(() => { res.redirect("/user") })
             .catch(() => { res.send("fail") })
     };
     //POST login
     login_post(req, res) {
-        const username = req.body.username;
+        const gmail = req.body.gmail;
         const password = req.body.password;
 
-        users.find({ 'userName': username, 'passWord': password })
+        users.find({ 'gmail': gmail, 'passWord': password })
             .then((users) => {
                 //users = users.map(user => user.toObject());
                 res.cookie('userID', users[0]._id);
@@ -43,8 +46,9 @@ class UserController {
                 });
             })
             .catch(() => {
-
-                res.redirect("/user");
+                res.render("login", {
+                    message: "Error: Username or password incorrect.",
+                });
             });
     }
 }

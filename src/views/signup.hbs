@@ -3,22 +3,27 @@
         <div class="row">
             <div class="col-md-4"></div>
             <div class="col-md-4">
-            <div align="center" class="logo" style="font-size:20px;">Tạo tài khoản</div>
+            <div align="center" class="logo" style="font-size:20px;">Create Account</div>
+            {{#if error}}
+                <h4 class="aleart aleart-danger mt-4" style='color:red;'>{{error}}</h4>
+            {{/if}}
             <form class="form-signin" method="POST" action="signup" style="font-size:20px;">
                  <span id="reauth-email" class="reauth-email"></span>
                  <input type="text"  class="form-control" placeholder="Name" name="name" required style="font-size:15px;margin-top:10px;">
                 
-                 <input type="Phone"  class="form-control" placeholder="Phone" name="phone" required style="font-size:15px;margin-top:10px;">
+                 <input type="tel"  class="form-control" placeholder="Phone" name="phone" required style="font-size:15px;margin-top:10px;" pattern="[0-9]{10}">
                 <input type="Email"  class="form-control" placeholder="Gmail" name="gmail" required style="font-size:15px;margin-top:10px;">
-                <input type="text"  class="form-control" placeholder="Possion" name="possion" required style="font-size:15px;margin-top:10px;">
-                <input type="text"  class="form-control" placeholder="UserName" name="username" required style="font-size:15px;margin-top:10px;">
+                <select class="form-select" aria-label="Disabled select example" name="possion" required style="font-size:15px;margin-top:10px;">
+                    <option value="1">Is user</option>
+                    <option value="2">Is admin</option>
+                </select>
                 <input type="password"  class="form-control" placeholder="PassWord" name="password" required style="font-size:15px;margin-top:10px;">
-                <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit" name="dangky" style="font-size:15px;margin-top:10px;">Đăng ký tài khoản</button>
+                <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit" name="dangky" style="font-size:15px;margin-top:10px;">Sign up account</button>
             </form><!-- /form -->
             <p style="font-size:15px;">
-            Đã có tài khoản ?
-            <a href="dangnhap.php" class="forgot-password" style="font-size:15px;">
-                 Đăng nhập tài khoản.
+            Created account ?
+            <a href="/user" class="forgot-password" style="font-size:15px;">
+                 Login account.
             </a>
             </p>
         </div>
