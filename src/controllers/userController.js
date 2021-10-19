@@ -1,5 +1,6 @@
 let users = require('../models/userModel');
-let { mutipleMongooseToObject } = require('../../until/mongoose')
+let { mutipleMongooseToObject } = require('../../until/mongoose');
+let jwt = require('jsonwebtoken');
 class UserController {
     //GET login
     login(req, res) {
@@ -39,14 +40,26 @@ class UserController {
         users.find({ 'gmail': gmail, 'passWord': password })
             .then((users) => {
                 //users = users.map(user => user.toObject());
-                res.cookie('userID', users[0]._id);
-                res.locals.user = users[0].name;
-                res.render('home', {
-                    users: mutipleMongooseToObject(users)
-                });
+                if (users) {
+                    let token = jwt.sign({ _id: users[0]._id }, "12345");
+                    res.cookie('userID', token);
+                    res.locals.user = users[0].name;
+                    console.log(res.locals.user);
+                    console.log(users[0].name);
+                    return res.redirect('home');
+                    // return res.render('home', {
+                    //     users: mutipleMongooseToObject(users),
+                    //     token: token
+                    // });
+                } else {
+                    return res.render("login", {
+                        message: "Error: Server error.",
+                    });
+                }
+
             })
             .catch(() => {
-                res.render("login", {
+                return res.render("login", {
                     message: "Error: Username or password incorrect.",
                 });
             });

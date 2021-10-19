@@ -22,6 +22,7 @@
     },
     "homepage": "https://github.com/nghiachaunamdinh/mooc_nodejs#readme",
     "dependencies": {
+        "bootstrap-icons": "^1.6.1",
         "express-handlebars": "^5.3.4",
         "jsonwebtoken": "^8.5.1",
         "mongoose": "^6.0.11",

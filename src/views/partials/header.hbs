@@ -1,16 +1,24 @@
 
-  <div class="container" style="margin:0px;padding:0px;">
+  <div class="container" style="margin:0px;padding:0px;max-width:100%;padding-bottom:20px;">
         <div class="row" style="margin:0px;padding:0px;width:100%;">
           <div class="col-md-4" style="margin:0px;padding:0px;">
             <img id="profile-img" src="../public/images/logo.png" style="width:200px;height:120px;padding:0px;"/>
           </div>
-          <div class="col-md-5" style="text-align: center;margin:0px;padding:0px;"><span class="navbar-text" style="font-size:40px;color:black; text-align:center;float:right">
+          <div class="col-md-5" style="margin:0px;padding:0px;">
+            <span class="navbar-text" style="font-size:40px;color:orange;font-weight:bold; text-align:center;">
               Take the test
-          </span></div>
-          <div class="col-md-3"  style="margin:0px;padding:0px;text-align:right;">
-            {{#if user}}
-               <div style="padding-top:35px;font-size:20px;color:rgb(18, 201, 97)">{{user}}</div>
-               {{/if}}
+            </span>
+          </div>
+          <div class="col-md-2" style="margin:0px;padding:0px;padding-top:40px;">
+          {{#if user}}
+          <div style="font-size:20px;color:rgb(18, 201, 97)">{{user}}</div>
+          {{/if}}
+          </div>
+          <div class="col-md-1" style="margin:0px;padding:0px;padding-top:40px;">
+          {{#if user}}
+          <a href="./logout"><i class="fas fa-sign-out-alt" style="font-size: 40px;color:blue;"></i></a>
+         
+          {{/if}}
           </div>
         </div>
-  </div>
+</div>
