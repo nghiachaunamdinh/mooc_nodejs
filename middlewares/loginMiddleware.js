@@ -13,7 +13,6 @@ module.exports.requireAuth = function(req, res, next) {
             if (users[0].possion == 1) {
                 next();
             } else {
-                console.log("----------------question")
                 return res.redirect('/question');
             }
 
@@ -24,6 +23,7 @@ module.exports.requireAuth = function(req, res, next) {
         });
 }
 module.exports.requireAuthUser = function(req, res, next) {
+
     if (!req.cookies.userID) {
         res.redirect('/user');
         return;
@@ -35,7 +35,6 @@ module.exports.requireAuthUser = function(req, res, next) {
             if (users[0].possion == 2) {
                 next();
             } else {
-                console.log("----------------question")
                 return res.redirect('/home');
             }
 

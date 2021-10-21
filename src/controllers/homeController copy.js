@@ -1,4 +1,5 @@
 let users = require('../models/userModel');
+let questions = require('../models/questionModel');
 let { mutipleMongooseToObject } = require('../../until/mongoose');
 let jwt = require('jsonwebtoken');
 class UserController {
@@ -29,7 +30,7 @@ class UserController {
                 "passWord": password
             })
             .then(() => { res.redirect("/user") })
-            .catch(() => { return res.render('signup', { error: "Add user fail." }); })
+            .catch(() => { res.send("fail") })
     };
     //POST login
     login_post(req, res) {

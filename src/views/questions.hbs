@@ -2,35 +2,88 @@
  <div class="row">
             <div class="col-md-2"></div>
             <div class="col-md-8" style="margin:0px;padding:0px;">
-<label for="" style="font-size: 20px;color: blue;text-align: center;">Câu 1: This is the........</label>
+              {{!-- {{#if questions}}
+              <form action="questions"  method="POST">
+               {{#each questions}}
+
+<label for="" style="font-size: 20px;color: blue;text-align: center;">{{this.title}}</label>
 <div class="form-check" style="padding-left: 50px;font-size: 20px;">
   <input class="form-check-input" type="checkbox" value="1" id="flexCheckDefault">
   <label class="form-check-label" for="flexCheckDefault">
-    A
+    A: {{this.A}}
   </label>
 </div>
 <div class="form-check" style="padding-left: 50px;font-size: 20px;">
   <input class="form-check-input" type="checkbox" value="2" id="flexCheckChecked" >
   <label class="form-check-label" for="flexCheckChecked">
-    B
+    B : {{this.B}}
   </label>
 </div>
 <div class="form-check" style="padding-left: 50px;font-size: 20px;">
   <input class="form-check-input" type="checkbox" value="3" id="flexCheckChecked" >
   <label class="form-check-label" for="flexCheckChecked">
-    C
+    C : {{this.C}}
   </label>
 </div>
 <div class="form-check" style="padding-left: 50px;font-size: 20px;">
   <input class="form-check-input" type="checkbox" value="3" id="flexCheckChecked" >
   <label class="form-check-label" for="flexCheckChecked">
-    D
+    D : {{this.D}}
   </label>
 </div>
-        <button type="button" class="btn btn-primary" style="margin-right: 80px;font-size: 20px;">Quay lại</button>
+
+
+      
+        <a class="page-item" href="?page={{page}}">
+          <button type="button" class="btn btn-primary" style="margin-right: 80px;font-size: 20px;">Quay lại</button>
+        </a>
         <button type="button" class="btn btn-primary" style="margin-right: 80px;font-size: 20px;">Lưu</button>
-        <button type="button" class="btn btn-primary" style="margin-right: 80px;font-size: 20px;">Tiếp tục</button>
+       
+        <button type="button" class="btn btn-primary" style="margin-right: 80px;font-size: 20px;" onclick="loadPage()">Tiếp tục</button>
+        
+        {{/each}} --}}
+                          <form action="question" method="POST">
+                            {{#each questions}}
+                            <div class="row card ques-box" style="border: 0px;">
+                                <div class="answer" style="padding-left: 20px;">
+                                    <label for="" style="font-size: 20px;color: blue;text-align: center;">{{this.title}}</label>
+                                      <div class="form-check" style="padding-left: 50px;font-size: 20px;">
+                                        <input class="form-check-input" type="checkbox" value="A" id="flexCheckDefault" name="{{this._id}}" >
+                                        <label class="form-check-label" for="flexCheckDefault">
+                                          A: {{this.A}}
+                                        </label>
+                                      </div>
+                                      <div class="form-check" style="padding-left: 50px;font-size: 20px;">
+                                        <input class="form-check-input" type="checkbox" value="B" id="flexCheckChecked" name="{{this._id}}">
+                                        <label class="form-check-label" for="flexCheckChecked">
+                                          B : {{this.B}}
+                                        </label>
+                                      </div>
+                                      <div class="form-check" style="padding-left: 50px;font-size: 20px;">
+                                        <input class="form-check-input" type="checkbox" value="C" id="flexCheckChecked" name="{{this._id}}">
+                                        <label class="form-check-label" for="flexCheckChecked" >
+                                          C : {{this.C}}
+                                        </label>
+                                      </div>
+                                      <div class="form-check" style="padding-left: 50px;font-size: 20px;">
+                                        <input class="form-check-input" type="checkbox" value="D" id="flexCheckChecked" name="{{this._id}}">
+                                        <label class="form-check-label" for="flexCheckChecked">
+                                          D : {{this.D}}
+                                        </label>
+                                      </div>
+                                </div>
+                            </div>
+                            {{/each}}
+                            {{#if page}}
+                            <button type="submit" class="btn btn-success btn-lg mb-1 buttonS" style="margin-top:20px;">Submit</button>
+                            {{/if}}
+                        </form>
+        {{#if err}}
+          <h1 style="color: red;">{{err}}</h1>
+         
+          {{/if}}
 </div>
+
 <div class="col-md-2">
   
 </div>
