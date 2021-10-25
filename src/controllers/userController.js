@@ -43,10 +43,6 @@ class UserController {
                     res.cookie('userID', token);
                     res.locals.user = users[0].name;
                     return res.redirect('./home');
-                    // return res.render('home', {
-                    //     users: mutipleMongooseToObject(users),
-                    //     token: token
-                    // });
                 } else {
                     return res.render("login", {
                         message: "Error: Server error.",

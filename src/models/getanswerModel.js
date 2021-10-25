@@ -2,6 +2,7 @@ let questions = require('../models/questionModel');
 let answers = require('../models/answerModel');
 let jwt = require('jsonwebtoken');
 let { mutipleMongooseToObject } = require('../../until/mongoose');
+
 class QuestionController {
     show(req, res) {
         questions.find()
@@ -41,19 +42,20 @@ class QuestionController {
                     "select": (req.session.listQuestion[key[i]]).join('')
                 })
                 if (create) {
-                    questions.findOne({ _id: key[i] }, await
-                        function(err, files) {
-                            if (err) {
-                                console.log(err)
-                            } else {
-                                console.log('id :', files._id.toHexString());
-                                console.log('req.session.listQuestion[files._id.toHexString(): ', req.session.listQuestion[files._id.toHexString()]);
-                                if (files.answer == ((req.session.listQuestion[files._id.toHexString()]).join(''))) {
-                                    console.log("true check------------")
-                                    sum += 1;
-                                }
+                    questions.findOne({ _id: key[i] }, function(err, files) {
+                        if (err) {
+                            console.log(err)
+                        } else {
+                            console.log('id :', files._id.toHexString());
+                            //console.log("files: ", files);
+                            console.log('req.session.listQuestion[files._id.toHexString(): ', req.session.listQuestion[files._id.toHexString()]);
+                            if (files.answer == ((req.session.listQuestion[files._id.toHexString()]).join(''))) {
+                                console.log("true check------------")
+                                sum += 1;
+                                console.log('sum two: ', sum);
                             }
-                        });
+                        }
+                    });
                 } else {
                     console.log(err);
                 }
@@ -65,41 +67,42 @@ class QuestionController {
                     "select": req.session.listQuestion[key[i]]
                 });
                 if (create) {
-                    questions.findOne({ _id: key[i] }, await
-                        function(err, que) {
-                            if (err) {
-                                console.log('ERR : ', err)
-                            } else {
-                                console.log('id', que._id.toHexString());
-                                console.log('req.session.listQuestion : ', req.session.listQuestion[que._id.toHexString()])
-                                if (que.answer == (req.session.listQuestion[que._id.toHexString()])) {
-                                    console.log("true check------------")
-                                    sum += 1;
-                                }
+                    questions.findOne({ _id: key[i] }, function(err, que) {
+                        if (err) {
+                            console.log('ERR : ', err)
+                        } else {
+                            console.log('id', que._id.toHexString());
+                            //console.log("que", que);
+                            console.log('req.session.listQuestion : ', req.session.listQuestion[que._id.toHexString()])
+                            if (que.answer == (req.session.listQuestion[que._id.toHexString()])) {
+                                console.log("true check------------")
+                                sum += 1;
+                                console.log('sum one: ', sum);
                             }
-                        });
+                        }
+                    });
 
                 } else {
                     console.log('ERR: ', err);
                 }
             }
         }
-        setTimeout(() => res.render('total', {
-            total: req.cookies.totalQuestion,
-            result: sum,
-            score: sum * 10
-        }), 300);
+        res.json(sum);
     }
     submitAnswer(req, res) { //chuyển câu hỏi và lưu đáp án đã chọnnpm
         let keyR = Object.keys(req.body);
         let _id = jwt.verify(req.cookies.userID, "12345");
         if (keyR.length > 1) req.session.listQuestion[(keyR).join('')] = (req.body[keyR]).join('');
         else req.session.listQuestion[keyR[0]] = req.body[keyR];
+        //console.log(req.session.listQuestion); //
+        //let key = Object.keys(req.session.listQuestion); //
+        //console.log(Object.keys(req.session.listQuestion)); //
+        //if ((req.session.listQuestion[key[0]]).length > 1) console.log((req.session.listQuestion[key[0]]).join('')); //
+        //else console.log(req.session.listQuestion[key[0]]); //
         questions.find()
             .then((question) => {
                 //users = users.map(user => user.toObject());
                 if (question) {
-                    res.cookie('totalQuestion', question.length);
                     let total = question.length;
                     let cookiepage = parseInt(req.cookies.page);
                     if (cookiepage < question.length) {
@@ -118,6 +121,8 @@ class QuestionController {
                 } else {
                     return res.render('questions', { err: 'Congratulations, you have completed the survey.' });
                 }
+
+
             })
             .catch((err) => {
                 return res.json("Error connect server");

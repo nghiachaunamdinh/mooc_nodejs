@@ -11,4 +11,5 @@ async function connect() {
         console.log("Connect error: " + err);
     }
 }
+
 module.exports = { connect };

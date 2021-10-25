@@ -3,13 +3,19 @@ const path = require("path");
 const morgan = require('morgan')
 const handlebars = require('express-handlebars');
 const cookieParser = require('cookie-parser');
-
-
+const session = require("express-session")
+var sessionstorage = require('sessionstorage');
 const route = require('./routes');
 const app = express()
 const port = 3000
 const db = require('./src/models/connect')
 db.connect();
+app.use(session({
+    resave: true,
+    saveUninitialized: true,
+    secret: "secret",
+    cookie: { secure: false }
+}))
 app.use(morgan("combined")) //HTTP logger
 app.engine('hbs', handlebars({ extname: '.hbs' }));
 app.set('view engine', 'hbs');
