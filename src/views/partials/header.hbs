@@ -6,19 +6,44 @@
           </div>
           <div class="col-md-5" style="margin:0px;padding:0px;">
             <span class="navbar-text" style="font-size:40px;color:orange;font-weight:bold; text-align:center;">
-              Take the test
+              Welcome to the survey
             </span>
           </div>
+           <div class="col-md-1"></div>
           <div class="col-md-2" style="margin:0px;padding:0px;padding-top:40px;">
           {{#if user}}
-          <div style="font-size:20px;color:rgb(18, 201, 97)">{{user}}</div>
+            {{#if possion}}
+                <div class="dropdown show" style="font-size: 15px;color:blue;">
+                  <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="font-size: 15px;color:blue;background-color: white; border:0px;font-weight: bold;">
+                    {{user}}
+                  </a>
+
+                  <div class="dropdown-menu" aria-labelledby="dropdownMenuLink" style="font-size: 15px;color:blue;">
+                    <a class="dropdown-item" href="/logout" style="font-size: 15px;color:blue;text-decoration: none;font-weight: bold;">Logout</a>
+                    <a class="dropdown-item" href="/home/listquestion" style="font-size: 15px;color:blue;font-weight: bold;text-decoration: none">Show List Question</a>
+                    <a class="dropdown-item" href="/home/listuser" style="font-size: 15px;color:blue;font-weight: bold;text-decoration: none">Show List User</a>
+                    <a class="dropdown-item" href="/home" style="font-size: 15px;color:blue;font-weight: bold;text-decoration: none">Create Question</a>
+                    <a class="dropdown-item" href="/user/signup" style="font-size: 15px;color:blue;font-weight: bold;text-decoration: none">Create Account</a>
+            </a>
+                  </div>
+                </div>
+            {{else}}
+              <div class="dropdown show" style="font-size: 15px;color:blue;">
+                  <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="font-size: 15px;color:blue;background-color: white; border:0px;font-weight: bold;">
+                    {{user}}
+                  </a>
+
+                  <div class="dropdown-menu" aria-labelledby="dropdownMenuLink" style="font-size: 15px;color:blue;font-weight: bold;text-decoration: none">
+                    <a class="dropdown-item" href="/logout" style="font-size: 15px;color:blue;font-weight: bold;text-decoration: none">Logout</a>
+                   
+                  </div>
+              </div>
+                {{!-- </div>
+              <a href="/logout"><i class="fas fa-sign-out-alt" style="font-size: 40px;color:blue;"></i></a> --}}
+            {{/if}}
+              
           {{/if}}
-          </div>
-          <div class="col-md-1" style="margin:0px;padding:0px;padding-top:40px;">
-          {{#if user}}
-          <a href="./logout"><i class="fas fa-sign-out-alt" style="font-size: 40px;color:blue;"></i></a>
-         
-          {{/if}}
+          
           </div>
         </div>
 </div>

@@ -4,6 +4,7 @@ const answerModel = new Schema({
     idUser: { type: String },
     idQuestion: { type: String },
     select: { type: String },
+    result: { type: Number },
     createAt: { type: Date, default: Date.now },
     updateAt: { type: Date, default: Date.now }
 });

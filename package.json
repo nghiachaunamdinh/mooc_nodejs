@@ -23,9 +23,11 @@
     "homepage": "https://github.com/nghiachaunamdinh/mooc_nodejs#readme",
     "dependencies": {
         "bootstrap-icons": "^1.6.1",
+        "ejs": "^3.1.6",
         "express-handlebars": "^5.3.4",
         "express-session": "^1.17.2",
         "jsonwebtoken": "^8.5.1",
+        "method-override": "^3.0.0",
         "mongoose": "^6.0.11",
         "mysql2": "^2.3.0",
         "sessionstorage": "^0.1.0"

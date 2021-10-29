@@ -1,0 +1,79 @@
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-8">
+           
+            <form class="form-signin" method="POST" action="/home/saveeditQuestion/{{_id}}?_method=PUT" style="font-size:20px;">
+                  <table>
+                      <tr>
+                          <td colspan="2" style="font-weight: bold;text-align: center;color:blue;">Edit Question</td>
+                      </tr>
+                    <tr>
+                        <td style="font-weight: bold;">
+                            Title: 
+                        </td>
+                        <td>
+                            <textarea  class="form-control"  name="title" required style="font-size:15px;margin-top:10px;width:500px;">{{title}}</textarea>
+                        </td>
+                    </tr>
+                     <tr>
+                        <td style="font-weight: bold;">
+                            A :  
+                        </td>
+                        <td>
+                             <textarea class="form-control"  name="A" required style="font-size:15px;margin-top:10px;">{{A}}</textarea>
+                        </td>
+                    </tr>
+                     <tr>
+                        <td style="font-weight: bold;">
+                            B : 
+                        </td>
+                        <td>
+                            <textarea  class="form-control"  name="B" required style="font-size:15px;margin-top:10px;">{{B}}</textarea>
+                        </td>
+                    </tr>
+                     <tr>
+                        <td style="font-weight: bold;">
+                            C : 
+                        </td>
+                        <td>
+                            <textarea  class="form-control"  name="C" required style="font-size:15px;margin-top:10px;">{{C}}</textarea>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="font-weight: bold;">
+                            D : 
+                        </td>
+                        <td>
+                            <textarea type="text"  class="form-control"  name="D" required style="font-size:15px;margin-top:10px;" >{{D}}</textarea>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="font-weight: bold;">
+                            Answer : 
+                        </td>
+                        <td style="padding-left:30px ;padding-top:20px;">
+                            <input type="text"  class="form-control" name="answer" required style="font-size:15px;" pattern="[A-D]{1,4}" value="{{answer}}">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" style="text-align: center;font-size:15px;color:red;font-weight:bold;">Nhập ít nhất 1,nhiều nhất 4 ký tự in hoa từ A tới D </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" style="text-align: center;">
+                            <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit" name="dangky" style="font-size:15px;margin-top:10px;">Save Question</button>
+                        </td>
+                    </tr>
+                  </table>
+               
+            </form><!-- /form -->
+        </div>
+        <div class="col-md-2"></div>
+    </div>
+    </div>
+
+
+
+
+ 

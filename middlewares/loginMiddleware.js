@@ -11,6 +11,7 @@ module.exports.requireAuth = function(req, res, next) {
         .then((users) => {
             res.locals.user = users[0].name;
             if (users[0].possion == 1) {
+                res.locals.possion = true;
                 next();
             } else {
                 return res.redirect('/question');

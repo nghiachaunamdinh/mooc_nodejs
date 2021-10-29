@@ -1,22 +1,32 @@
-<div class="container" style="height: 400px;margin:0px;max-width:100%;">
+
+    <div class="container">
         <div class="row">
-          <div class="col-md-4"></div>
-          <div class="col-md-4">
-                <ul class='people_list'>
-                     {{#each users}}
-                    <li>{{this._id}}</li>
-                    <li>{{this.name}}</li>
-                    <li>{{this.phone}}</li>
-                    <li>{{this.passWord}}</li>
-                     {{/each}}
-                      
-                </ul>
-                {{token}}
-          </div>
-          <div class="col-md-4">
-              
-          </div>
-     </div>
-</div>
-              
-               
+            <div class="col-md-4"></div>
+            <div class="col-md-4">
+            <form class="form-signin" method="POST" action="home" style="font-size:20px;">
+                 <span id="reauth-email" class="reauth-email"></span>
+                 <input type="text"  class="form-control" placeholder="Title" name="title" required style="font-size:15px;margin-top:10px;">
+                
+                 <input type="text"  class="form-control" placeholder="Content Answer A" name="A" required style="font-size:15px;margin-top:10px;" >
+                <input type="text"  class="form-control" placeholder="Content Answer B" name="B" required style="font-size:15px;margin-top:10px;">
+                <input type="text"  class="form-control" placeholder="Content Answer C" name="C" required style="font-size:15px;margin-top:10px;">
+               <input type="text"  class="form-control" placeholder="Content Answer D" name="D" required style="font-size:15px;margin-top:10px;">
+               <h3 style="margin-top:10px;">Answers :</h3> 
+              <input class="form-check-input" type="checkbox" value="A" id="flexCheckDefault" name="answer" >
+              <label class="form-check-label" for="flexCheckDefault">
+               A</label>
+               <input class="form-check-input" type="checkbox" value="B" id="flexCheckDefault" name="answer" >
+              <label class="form-check-label" for="flexCheckDefault">
+               B</label>
+               <input class="form-check-input" type="checkbox" value="C" id="flexCheckDefault" name="answer" >
+              <label class="form-check-label" for="flexCheckDefault">
+               C</label>
+               <input class="form-check-input" type="checkbox" value="D" id="flexCheckDefault" name="answer" >
+              <label class="form-check-label" for="flexCheckDefault">
+               D</label>
+               <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit" name="dangky" style="font-size:15px;margin-top:10px;">Create Question</button>
+            </form><!-- /form -->
+        </div>
+        <div class="col-md-4"></div>
+    </div>
+    </div>

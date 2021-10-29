@@ -3,6 +3,46 @@ let answers = require('../models/answerModel');
 let jwt = require('jsonwebtoken');
 let { mutipleMongooseToObject } = require('../../until/mongoose');
 class QuestionController {
+    async showResult(req, res) {
+        await questions.find()
+            .then((question) => {
+                if (question) {
+                    let total = question.length;
+                    let page = parseInt(req.query.page);
+                    console.log('page: ', page);
+                    question = question.slice(page - 1, page);
+                    let urlnext = './show?page=' + (page + 1);
+                    let urlback = './show?page=' + (page - 1);
+                    if (page == 1) {
+                        return res.render('showResult', {
+                            questions: mutipleMongooseToObject(question),
+                            page: page,
+                            urlnext: urlnext
+                        });
+                    };
+                    if (page == total) {
+                        return res.render('showResult', {
+                            questions: mutipleMongooseToObject(question),
+                            page: page,
+                            urlback: urlback
+                        });
+                    }
+                    return res.render('showResult', {
+                        questions: mutipleMongooseToObject(question),
+                        page: page,
+                        urlback: urlback,
+                        urlnext: urlnext
+                    });
+
+                } else {
+                    return res.render('showResult', { err: 'Không có bài thi nào.' });
+                }
+            })
+            .catch((err) => {
+                return res.render('questions', { err: err });
+            });
+
+    }
     show(req, res) {
         questions.find()
             .then((question) => {
@@ -12,8 +52,7 @@ class QuestionController {
                     let page = parseInt(req.query.page) || 1;
                     question = question.slice(page - 1, page);
                     res.cookie('page', 1);
-                    req.session.listQuestion = {}; //
-                    //sessionstorage.setItem('answer', { dac: 'dac' });
+                    req.session.listQuestion = {};
                     return res.render('questions', {
                         questions: mutipleMongooseToObject(question),
                         page: page,
@@ -38,22 +77,28 @@ class QuestionController {
                 const create = await answers.create({
                     "idUser": _id,
                     "idQuestion": key[i],
-                    "select": (req.session.listQuestion[key[i]]).join('')
+                    "select": (req.session.listQuestion[key[i]]).join(''),
+                    "result": 0
                 })
                 if (create) {
+                    const filter = { '_id': create._id };
+                    let update = { 'result': 0 };
                     questions.findOne({ _id: key[i] }, await
                         function(err, files) {
                             if (err) {
                                 console.log(err)
                             } else {
                                 console.log('id :', files._id.toHexString());
-                                console.log('req.session.listQuestion[files._id.toHexString(): ', req.session.listQuestion[files._id.toHexString()]);
                                 if (files.answer == ((req.session.listQuestion[files._id.toHexString()]).join(''))) {
                                     console.log("true check------------")
                                     sum += 1;
+                                    update = { 'result': 1 };
+                                    // `doc` is the document _before_ `update` was applied
+
                                 }
                             }
                         });
+                    answers.findOneAndUpdate(filter, update);
                 } else {
                     console.log(err);
                 }
@@ -62,23 +107,28 @@ class QuestionController {
                 const create = await answers.create({
                     "idUser": _id,
                     "idQuestion": key[i],
-                    "select": req.session.listQuestion[key[i]]
+                    "select": req.session.listQuestion[key[i]],
+                    "result": 0
                 });
                 if (create) {
+                    const filter = { '_id': create._id }; //update kết quả
+                    let update = { 'result': 0 };
                     questions.findOne({ _id: key[i] }, await
-                        function(err, que) {
+                        function(err, files) {
                             if (err) {
                                 console.log('ERR : ', err)
                             } else {
-                                console.log('id', que._id.toHexString());
-                                console.log('req.session.listQuestion : ', req.session.listQuestion[que._id.toHexString()])
-                                if (que.answer == (req.session.listQuestion[que._id.toHexString()])) {
+                                console.log('id', files._id.toHexString());
+                                console.log('req.session.listQuestion : ', req.session.listQuestion[files._id.toHexString()])
+                                if (files.answer == (req.session.listQuestion[files._id.toHexString()])) {
                                     console.log("true check------------")
                                     sum += 1;
+                                    update = { 'result': 1 };
+
                                 }
                             }
                         });
-
+                    answers.findOneAndUpdate(filter, update);
                 } else {
                     console.log('ERR: ', err);
                 }

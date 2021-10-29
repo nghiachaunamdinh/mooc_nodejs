@@ -1,0 +1,77 @@
+<div class="container" style="margin:0px;padding:0px;max-width:100%;">
+        <div class="row" style="margin:0px;padding:0px;">
+            <div class="col-md-12">
+                <table class="table table-striped" style='font-size: 20px;'>
+                    <thead>
+                        <tr>
+                        <th scope="col">STT</th>
+                        <th scope="col">Title</th>
+                        <th scope="col">A</th>
+                        <th scope="col">B</th>
+                        <th scope="col">C</th>
+                        <th scope="col">D</th>
+                        <th scope="col" style="width:20px;">Answer</th>
+                        <th scope="col"></th>
+                        </tr>
+                    </thead>
+                    <tbody style='font-size: 16px'>
+                        {{#each questions}}
+                        <tr>
+                        <th scope="row">{{sum @index 1}}</th>
+                        <td>{{this.title}}</td>
+                        <td>{{this.A}}</td>
+                        <td>{{this.B}}</td>
+                        <td>{{this.C}}</td>
+                        <td>{{this.D}}</td>
+                        <td>{{this.answer}}</td>
+                        <td style="text-align: center;">
+                            <a href="/home/edit/{{this._id}}" class="btn btn-link"  style='font-size: 14px;text-decoration: none'><i class="fas fa-edit"></i></a>
+                            <a href="" class="btn btn-link"  style='font-size: 14px;text-decoration: none' data-toggle="modal" data-target="#delete-question" data-id="{{this._id}}"><i class="fas fa-trash-alt" ></i></a>
+                        </td>
+                        </tr>
+                        {{/each}}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+</div> 
+
+<!-- Modal aleart delete -->
+<div class="modal" id="delete-question" tabindex="-1" role="dialog" style="font-size: 20px;">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" style="font-size: 20px;">Notify.</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" style="font-size: 20px;">
+        <p>Do you agree to delete?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" id="id_yes" class="btn btn-danger" style="font-size: 20px;">Yes</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" style="font-size: 20px;">No</button>
+      </div>
+    </div>
+  </div>
+</div>
+<form id="form-delete" method="POST">
+
+</form>
+<script>
+    document.addEventListener('DOMContentLoaded',function(){
+        var id_delete;
+        var deleteForm=document.forms['form-delete'];
+        $('#delete-question').on('show.bs.modal', function (event) {
+        let button = $(event.relatedTarget) ;
+        id_delete = button.data('id') ;
+        })
+        let btn_yes=document.getElementById('id_yes')
+        btn_yes.onclick=function(){
+            deleteForm.action="/home/deleteQuestion/"+id_delete+"?_method=DELETE";
+            deleteForm.submit();
+        }
+    })
+    
+</script>

@@ -1,0 +1,55 @@
+
+ <div class="row" style="height:550px">
+            <div class="col-md-2"></div>
+            <div class="col-md-8" style="margin:0px;padding:0px;">
+                             <form action="" method="">
+                            {{#each questions}}
+                            <div class="row card ques-box" style="border: 0px;">
+                                <div class="answer" style="padding-left: 20px;">
+                                    <label for="" style="font-size: 20px;color: blue;text-align: center;">{{this.title}}</label>
+                                      <div class="form-check" style="padding-left: 50px;font-size: 20px;">
+                                        <input class="form-check-input" type="checkbox" value="A" id="flexCheckDefault" name="{{this._id}}" id="a" >
+                                        <label class="form-check-label" for="flexCheckDefault">
+                                          A: {{this.A}}
+                                        </label>
+                                      </div>
+                                      <div class="form-check" style="padding-left: 50px;font-size: 20px;">
+                                        <input class="form-check-input" type="checkbox" value="B" id="flexCheckChecked" name="{{this._id}}" id='b'>
+                                        <label class="form-check-label" for="flexCheckChecked">
+                                          B : {{this.B}}
+                                        </label>
+                                      </div>
+                                      <div class="form-check" style="padding-left: 50px;font-size: 20px;">
+                                        <input class="form-check-input" type="checkbox" value="C" id="flexCheckChecked" name="{{this._id}}" id='c'>
+                                        <label class="form-check-label" for="flexCheckChecked" >
+                                          C : {{this.C}}
+                                        </label>
+                                      </div>
+                                      <div class="form-check" style="padding-left: 50px;font-size: 20px;">
+                                        <input class="form-check-input" type="checkbox" value="D" id="flexCheckChecked" name="{{this._id}}" id='d'>
+                                        <label class="form-check-label" for="flexCheckChecked">
+                                          D : {{this.D}}
+                                        </label>
+                                
+                                      </div>
+                                </div>
+                            </div> 
+                            {{/each}}
+                        </form>
+                        {{#if urlback}}
+                                <a href="{{urlback}}">
+                                <button type="" class="btn btn-success btn-lg mb-1 buttonS" style="margin-top:20px;" >Back</button>
+                                </a>
+                        {{/if}}
+                        {{#if urlnext}}
+                                <a href="{{urlnext}}">
+                                <button type="submit" class="btn btn-success btn-lg mb-1 buttonS" style="margin-top:20px;">Next</button>
+                                </a>
+                        {{/if}}
+                        
+                </div>
+
+<div class="col-md-2">
+  
+</div>
+</div>
