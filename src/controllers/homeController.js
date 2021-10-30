@@ -11,7 +11,7 @@ class HomeController {
     listuser(req, res) {
         users.find({})
             .then((user) => res.render("listUser", {
-                user: mutipleMongooseToObject(user)
+                users: mutipleMongooseToObject(user)
             }))
             .catch((err) => res.json(err))
     };
@@ -60,6 +60,18 @@ class HomeController {
             })
 
     };
+    //PUT home/saveeditUser/:id
+    async saveedituser(req, res) {
+        users.updateOne({ _id: req.params.id }, req.body)
+            .then(() => {
+                res.redirect('/home/listuser');
+            })
+            .catch((err) => {
+                console.log(err);
+                res.json(err);
+            })
+
+    };
     //GET home/edit/:id
     editquestion(req, res) {
         console.log(req.params.id)
@@ -82,6 +94,26 @@ class HomeController {
             })
 
     };
+    //GET home/edituser/:id
+    edituser(req, res) {
+        console.log(req.params.id)
+        users.findById(req.params.id)
+            .then((user) => {
+                console.log('user : ', user);
+                res.render("editUser", {
+                    _id: user._id,
+                    name: user.name,
+                    phone: user.phone,
+                    gmail: user.gmail,
+                    possion: user.possion
+                })
+            })
+            .catch(err => {
+                console.log('ERR : ', err);
+                res.json(err);
+            })
+
+    };
     //DELETE /home/deleteQuestion/:id
     deletequestion(req, res) {
         questions.deleteOne({ _id: req.params.id })
@@ -92,6 +124,42 @@ class HomeController {
                 console.log(err)
                 res.json(err);
             })
-    }
+    };
+    //DELETE /home/deleteQuestion/:id
+    deleteuser(req, res) {
+        users.deleteOne({ _id: req.params.id })
+            .then(() => {
+                res.redirect('back');
+            })
+            .catch((err) => {
+                console.log(err)
+                res.json(err);
+            })
+    };
+    //GET singup
+    signup(req, res) {
+        res.render("signup");
+    };
+    //POST singup
+    async signup_post(req, res) {
+        const name = req.body.name;
+        const phone = req.body.phone;
+        const gmail = req.body.gmail;
+        const possion = req.body.possion;
+        const password = req.body.password;
+        const findPhone = await users.findOne({ phone });
+        const findUser = await users.findOne({ gmail });
+        if (findPhone) return res.render('signup', { error: "Phone is already in use." });
+        if (findUser) return res.render('signup', { error: "Gmail is already in use." });
+        users.create({
+                "name": name,
+                "phone": phone,
+                "gmail": gmail,
+                "possion": possion,
+                "passWord": password
+            })
+            .then(() => { res.redirect("/home/listuser") })
+            .catch(() => { return res.render('signup', { error: "Add user fail." }); })
+    };
 }
 module.exports = new HomeController;

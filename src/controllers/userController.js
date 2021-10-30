@@ -6,31 +6,7 @@ class UserController {
     login(req, res) {
         res.render("login");
     };
-    //GET singup
-    signup(req, res) {
-        res.render("signup");
-    };
-    //POST singup
-    async signup_post(req, res) {
-        const name = req.body.name;
-        const phone = req.body.phone;
-        const gmail = req.body.gmail;
-        const possion = req.body.possion;
-        const password = req.body.password;
-        const findPhone = await users.findOne({ phone });
-        const findUser = await users.findOne({ gmail });
-        if (findPhone) return res.render('signup', { error: "Phone is already in use." });
-        if (findUser) return res.render('signup', { error: "Gmail is already in use." });
-        users.create({
-                "name": name,
-                "phone": phone,
-                "gmail": gmail,
-                "possion": possion,
-                "passWord": password
-            })
-            .then(() => { res.redirect("/user") })
-            .catch(() => { return res.render('signup', { error: "Add user fail." }); })
-    };
+
     //POST login
     login_post(req, res) {
         const gmail = req.body.gmail;

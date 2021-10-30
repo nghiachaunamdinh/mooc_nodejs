@@ -13,7 +13,7 @@
                         </tr>
                     </thead>
                     <tbody style='font-size: 16px'>
-                        {{#each user}}
+                        {{#each users}}
                         <tr>
                         <th scope="row">{{sum @index 1}}</th>
                         <td>{{this.name}}</td>
@@ -22,8 +22,8 @@
                         <td>{{this.possion}}</td>
                     
                         <td style="text-align: center;">
-                            <a href="/home/edit/{{this._id}}" class="btn btn-link"  style='font-size: 14px;text-decoration: none'><i class="fas fa-edit"></i></a>
-                            <a href="" class="btn btn-link"  style='font-size: 14px;text-decoration: none' data-toggle="modal" data-target="#delete-question" data-id="{{this._id}}"><i class="fas fa-trash-alt" ></i></a>
+                            <a href="/home/edituser/{{this._id}}" class="btn btn-link"  style='font-size: 14px;text-decoration: none'><i class="fas fa-edit"></i></a>
+                            <a href="" class="btn btn-link"  style='font-size: 14px;text-decoration: none' data-toggle="modal" data-target="#delete-user" data-id="{{this._id}}"><i class="fas fa-trash-alt" ></i></a>
                         </td>
                         </tr>
                         {{/each}}
@@ -34,7 +34,7 @@
 </div> 
 
 <!-- Modal aleart delete -->
-<div class="modal" id="delete-question" tabindex="-1" role="dialog" style="font-size: 20px;">
+<div class="modal" id="delete-user" tabindex="-1" role="dialog" style="font-size: 20px;">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -60,13 +60,13 @@
     document.addEventListener('DOMContentLoaded',function(){
         var id_delete;
         var deleteForm=document.forms['form-delete'];
-        $('#delete-question').on('show.bs.modal', function (event) {
+        $('#delete-user').on('show.bs.modal', function (event) {
         let button = $(event.relatedTarget) ;
         id_delete = button.data('id') ;
         })
         let btn_yes=document.getElementById('id_yes')
         btn_yes.onclick=function(){
-            deleteForm.action="/home/deleteQuestion/"+id_delete+"?_method=DELETE";
+            deleteForm.action="/home/deleteUser/"+id_delete+"?_method=DELETE";
             deleteForm.submit();
         }
     })
