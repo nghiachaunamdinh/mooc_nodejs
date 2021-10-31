@@ -6,31 +6,36 @@
                             {{#each questions}}
                             <div class="row card ques-box" style="border: 0px;">
                                 <div class="answer" style="padding-left: 20px;">
-                                    <label for="" style="font-size: 20px;color: blue;text-align: center;">{{this.title}}</label>
+                                    <label for="" style="font-size: 20px;color: blue;text-align: center;">Question  : {{this.title}}</label>
                                       <div class="form-check" style="padding-left: 50px;font-size: 20px;">
-                                        <input class="form-check-input" type="checkbox" value="A" id="flexCheckDefault" name="{{this._id}}" >
-                                        <label class="form-check-label" for="flexCheckDefault">
+
+                                        <input class="form-check-input" type="checkbox" value="A" id="A" name="{{this._id}}" >
+                                        <label class="form-check-label" for="A">
                                           A: {{this.A}}
                                         </label>
                                       </div>
+
                                       <div class="form-check" style="padding-left: 50px;font-size: 20px;">
-                                        <input class="form-check-input" type="checkbox" value="B" id="flexCheckChecked" name="{{this._id}}">
-                                        <label class="form-check-label" for="flexCheckChecked">
+                                        <input class="form-check-input" type="checkbox" value="B" id="B" name="{{this._id}}">
+                                        <label class="form-check-label" for="B">
                                           B : {{this.B}}
                                         </label>
                                       </div>
+
                                       <div class="form-check" style="padding-left: 50px;font-size: 20px;">
-                                        <input class="form-check-input" type="checkbox" value="C" id="flexCheckChecked" name="{{this._id}}">
-                                        <label class="form-check-label" for="flexCheckChecked" >
+                                        <input class="form-check-input" type="checkbox" value="C" id="C" name="{{this._id}}">
+                                        <label class="form-check-label" for="C" >
                                           C : {{this.C}}
                                         </label>
                                       </div>
+
                                       <div class="form-check" style="padding-left: 50px;font-size: 20px;">
-                                        <input class="form-check-input" type="checkbox" value="D" id="flexCheckChecked" name="{{this._id}}">
-                                        <label class="form-check-label" for="flexCheckChecked">
+                                        <input class="form-check-input" type="checkbox" value="D" id="D" name="{{this._id}}">
+                                        <label class="form-check-label" for="D">
                                           D : {{this.D}}
                                         </label>
                                       </div>
+
                                 </div>
                             </div> 
                             {{/each}}
@@ -51,4 +56,5 @@
   <a> <button type="button" class="btn btn-success btn-lg mb-1 buttonS" style="margin-top:20px;">Review survey</button></a>
   {{/if}}
 </div>
+ </div>
 

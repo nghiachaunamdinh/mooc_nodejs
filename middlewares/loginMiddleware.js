@@ -45,3 +45,12 @@ module.exports.requireAuthUser = function(req, res, next) {
             return;
         });
 }
+module.exports.checkUser = function(req, res, next) {
+
+    if (!req.cookies.userID) {
+        res.redirect('/user');
+        return;
+    } else {
+        next();
+    }
+}

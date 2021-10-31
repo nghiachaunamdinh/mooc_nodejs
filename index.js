@@ -23,6 +23,26 @@ app.engine('hbs', handlebars({
     helpers: {
         sum: function(x, y) {
             return x + y;
+        },
+        setanswer: function(str) {
+
+
+            let css = "";
+            if (str.includes("A")) {
+                css += '#A{color: red;}';
+            }
+
+            if (str.includes("B")) {
+                css += '#B{color: red;}';
+            }
+            if (str.includes("C")) {
+                css += '#C{color: red;}';
+            }
+            if (str.includes("D")) {
+                css += '#D{color: red;}';
+            }
+
+            return css;
         }
     }
 }));

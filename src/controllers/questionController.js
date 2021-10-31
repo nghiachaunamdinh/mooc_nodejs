@@ -4,35 +4,51 @@ let jwt = require('jsonwebtoken');
 let { mutipleMongooseToObject } = require('../../until/mongoose');
 class QuestionController {
     async showResult(req, res) {
+        let _id = jwt.verify(req.cookies.userID, "12345"); //
+        let select = "";
         await questions.find()
             .then((question) => {
                 if (question) {
                     let total = question.length;
                     let page = parseInt(req.query.page);
-                    console.log('page: ', page);
+                    answers.findOne({ 'idUser': _id._id, 'idQuestion': question[page - 1]._id }) //
+                        .then((ans) => {
+                            select = ans.select;
+                        })
+                        .catch((err) => {
+                            console.log('err answer: ', err)
+                        })
+                        //console.log('_id: ', _id._id); //
+                        // setTimeout(() => console.log('select: ', select), 100) //
                     question = question.slice(page - 1, page);
                     let urlnext = './show?page=' + (page + 1);
                     let urlback = './show?page=' + (page - 1);
-                    if (page == 1) {
+                    setTimeout(() => {
+                        console.log('Select: ', select);
+                        if (page == 1) {
+                            return res.render('showResult', {
+                                questions: mutipleMongooseToObject(question),
+                                page: page,
+                                urlnext: urlnext,
+                                select: select
+                            });
+                        };
+                        if (page == total) {
+                            return res.render('showResult', {
+                                questions: mutipleMongooseToObject(question),
+                                page: page,
+                                urlback: urlback,
+                                select: select
+                            });
+                        }
                         return res.render('showResult', {
                             questions: mutipleMongooseToObject(question),
                             page: page,
-                            urlnext: urlnext
+                            urlback: urlback,
+                            urlnext: urlnext,
+                            select: select
                         });
-                    };
-                    if (page == total) {
-                        return res.render('showResult', {
-                            questions: mutipleMongooseToObject(question),
-                            page: page,
-                            urlback: urlback
-                        });
-                    }
-                    return res.render('showResult', {
-                        questions: mutipleMongooseToObject(question),
-                        page: page,
-                        urlback: urlback,
-                        urlnext: urlnext
-                    });
+                    }, 100);
 
                 } else {
                     return res.render('showResult', { err: 'Không có bài thi nào.' });
@@ -70,7 +86,7 @@ class QuestionController {
         let sum = 0; //tổng số câu trả lời đúng
         let _id = jwt.verify(req.cookies.userID, "12345"); //lấy ra id của user
         let key = Object.keys(req.session.listQuestion); //lấy ra tổng số key
-        console.log('key ; ', key)
+        //n = str.includes("world"); // true
         let i = 0;
         for (i; i < key.length; i++) {
             if ((req.session.listQuestion[key[i]]).length > 1) {
