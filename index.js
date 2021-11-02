@@ -24,10 +24,24 @@ app.engine('hbs', handlebars({
         sum: function(x, y) {
             return x + y;
         },
-        setanswer: function(str) {
+        setanswer: function(str, ans) {
 
-
+            ans += '';
             let css = "";
+
+            if (ans.includes("A")) {
+                css += '#A{color: green;}';
+            }
+
+            if (ans.includes("B")) {
+                css += '#B{color: green;}';
+            }
+            if (ans.includes("C")) {
+                css += '#C{color: green;}';
+            }
+            if (ans.includes("D")) {
+                css += '#D{color: green;}';
+            }
             if (str.includes("A")) {
                 css += '#A{color: red;}';
             }
@@ -41,7 +55,6 @@ app.engine('hbs', handlebars({
             if (str.includes("D")) {
                 css += '#D{color: red;}';
             }
-
             return css;
         }
     }

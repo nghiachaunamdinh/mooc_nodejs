@@ -7,5 +7,5 @@ const router = express.Router();
 router.get('/show', authMiddleware.checkUser, questionController.showResult);
 router.get('/total', authMiddleware.checkUser, questionController.total); //hiển thị kết quả
 router.post('/', questionController.submitAnswer)
-router.get('/', questionController.show);
+router.get('/', authMiddleware.checksurveydone, questionController.show);
 module.exports = router;

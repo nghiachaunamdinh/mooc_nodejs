@@ -31,10 +31,12 @@
                                        
                                         <label class="form-check-label" for="" id='D'>
                                           D : {{this.D}}
+                                          
                                         </label>
+                                        
                                         <style>
                             
-                                           {{setanswer this.answer}}
+                                           {{setanswer this.answer this.select}}
                                         </style>
                                        
                                       </div>
@@ -44,9 +46,7 @@
                           
                             {{/each}}
                         </form>
-                         <div style="padding-left: 50px;font-size: 20px;color:rgb(124, 225, 65),font-weight:bold;text-align: center;">
-                            Đáp án đã chọn: {{select}}
-                          </div>
+                         
                         {{#if urlback}}
                                 <a href="{{urlback}}">
                                 <button type="" class="btn btn-success btn-lg mb-1 buttonS" style="margin-top:20px;" >Back</button>

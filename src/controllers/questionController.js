@@ -18,16 +18,15 @@ class QuestionController {
                         .catch((err) => {
                             console.log('err answer: ', err)
                         })
-                        //console.log('_id: ', _id._id); //
-                        // setTimeout(() => console.log('select: ', select), 100) //
                     question = question.slice(page - 1, page);
                     let urlnext = './show?page=' + (page + 1);
                     let urlback = './show?page=' + (page - 1);
                     setTimeout(() => {
-                        console.log('Select: ', select);
+                        question = mutipleMongooseToObject(question);
+                        question[0].select = select;
                         if (page == 1) {
                             return res.render('showResult', {
-                                questions: mutipleMongooseToObject(question),
+                                questions: question,
                                 page: page,
                                 urlnext: urlnext,
                                 select: select
@@ -35,14 +34,14 @@ class QuestionController {
                         };
                         if (page == total) {
                             return res.render('showResult', {
-                                questions: mutipleMongooseToObject(question),
+                                questions: question,
                                 page: page,
                                 urlback: urlback,
                                 select: select
                             });
                         }
                         return res.render('showResult', {
-                            questions: mutipleMongooseToObject(question),
+                            questions: question,
                             page: page,
                             urlback: urlback,
                             urlnext: urlnext,
@@ -55,6 +54,7 @@ class QuestionController {
                 }
             })
             .catch((err) => {
+                console.log('Không có câu hỏi nào');
                 return res.render('questions', { err: err });
             });
 
@@ -104,9 +104,9 @@ class QuestionController {
                             if (err) {
                                 console.log(err)
                             } else {
-                                console.log('id :', files._id.toHexString());
+                                //console.log('id :', files._id.toHexString());
                                 if (files.answer == ((req.session.listQuestion[files._id.toHexString()]).join(''))) {
-                                    console.log("true check------------")
+                                    //console.log("true check------------")
                                     sum += 1;
                                     update = { 'result': 1 };
                                     // `doc` is the document _before_ `update` was applied
@@ -134,10 +134,10 @@ class QuestionController {
                             if (err) {
                                 console.log('ERR : ', err)
                             } else {
-                                console.log('id', files._id.toHexString());
-                                console.log('req.session.listQuestion : ', req.session.listQuestion[files._id.toHexString()])
+                                //console.log('id', files._id.toHexString());
+                                //console.log('req.session.listQuestion : ', req.session.listQuestion[files._id.toHexString()])
                                 if (files.answer == (req.session.listQuestion[files._id.toHexString()])) {
-                                    console.log("true check------------")
+                                    //console.log("true check------------")
                                     sum += 1;
                                     update = { 'result': 1 };
 
